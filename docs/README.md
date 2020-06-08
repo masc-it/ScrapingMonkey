@@ -4,6 +4,8 @@ ScrapingMonkey - RESTful API to scrape website content.
 
 In this doc you will find both API calls syntax and some practical examples.
 
+Doc status: WIP
+
 ## Get ScrapingMonkey
 
 You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace!
