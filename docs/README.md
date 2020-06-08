@@ -73,3 +73,17 @@ _Parameters_
 _Response_
 
 `{"response":"OK","result":[{"table_header":{"href":"\/adam-p\/markdown-here\/wiki","text":"Home"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Compatibility","text":"Compatibility"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Development-Notes","text":"Development Notes"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Markdown-Cheatsheet","text":"Markdown Cheatsheet"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Markdown-Here-Cheatsheet","text":"Markdown Here Cheatsheet"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Other-Markdown-Tools","text":"Other Markdown Tools"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Press,-Posts,-Reviews,-Etc.","text":"Press, Posts, Reviews, Etc."}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Reviews","text":"Reviews"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Tips-and-Tricks","text":"Tips and Tricks"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Troubleshooting","text":"Troubleshooting"}}]}`
+
+# /byId
+
+# /byTag
+
+# /byClass
+
+# /getRawHtml
+
+# /scrapeHTML
+
+# /submitForm
+
+# /getLinkByName
