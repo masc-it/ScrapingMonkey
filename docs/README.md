@@ -65,7 +65,7 @@ A **pipeline target** is a json object made in this way:
 
 A **pipeline action** is a json object made in this way:
 
-- name: A meaningful alias for an action. This is a user defined constant, useful to retrieve data in the response.
+- name: A meaningful alias for the action. This is a user defined constant, useful to retrieve data in the response.
 - type (string)
 	- CLICK
 	- RUN_SCRIPT
@@ -75,11 +75,11 @@ A **pipeline action** is a json object made in this way:
 	- GO_TO
 	- SCREENSHOT
 - selector
-	- an xpath or css selector
+	- an xpath selector
 	- It is *mandatory* for CLICK and SEND_KEYS
-	- It is optional for the others.
 - data
-	- This parameter assume different meaning according to the type of action. 
+	- This parameter assumes a different meaning according to the type of action.
+	- It is *mandatory* for RUN_SCRIPT, SCREENSHOT, GO_TO and SEND_KEYS
 	
 Follow a description of all the actions supported.
 
@@ -88,6 +88,13 @@ Follow a description of all the actions supported.
 Click an element in the currently loaded page. 
 
 - selector: xpath selector to find the element to be clicked.
+
+### SEND_KEYS
+
+Send characters to an input field.
+
+- selector: xpath selector to the input element 
+- data: the string to send
 
 ### GO_TO
 
@@ -106,7 +113,7 @@ Run a javascript code snippet. You can either pass a dom element to the script, 
 - data: javascript code to run.
 - selector (optional): xpath selector; the target element can then be used in your code using the local variable  *arguments[0]*.
 
-A task with an action of type SCRIPT (passing a parameter too):
+An example of task with a RUN_SCRIPT action (passing a parameter too):
 
 	{ 
 		"url" : "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons",
