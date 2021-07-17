@@ -101,13 +101,35 @@ Navigate to the previous or next page (if any).
 
 ### RUN_SCRIPT
 
-Run a javascript code snippet. You can either pass a dom element to the script, in that case you need to specify it using the selector parameter and access it using *attributes[0]*.
+Run a javascript code snippet. You can either pass a dom element to the script, in that case you need to specify it using the selector parameter and access it using *arguments[0]*.
 
 - data: javascript code to run.
-- selector (optional): xpath selector; the target element can then be used in your code using the local variable  *attributes[0]*.
+- selector (optional): xpath selector; the target element can then be used in your code using the local variable  *arguments[0]*.
 
-Example here.
+A task with an action of type SCRIPT (passing a parameter too):
 
+	{ 
+		"url" : "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons"
+		"pipeline": 
+			[
+				{
+					"name": "last_activity", 
+					"type": "XPATH", 
+					"selector": "//a[contains(@href, 'lastact')]"
+				}, 
+				{
+					"name": "scroll_to", 
+					"type": "RUN_SCRIPT", 
+					"selector": "//a[contains(., 'An issue filtering related models')]", 
+					"data" : "arguments[0].scrollIntoView()"
+				}, 
+				{
+					"name": "screen", 
+					"type": "SCREENSHOT", 
+					"data" : "screen0.png"
+				}
+			]
+	}
 
 ### SCREENSHOT
 
