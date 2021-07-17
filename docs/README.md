@@ -109,7 +109,7 @@ Run a javascript code snippet. You can either pass a dom element to the script, 
 A task with an action of type SCRIPT (passing a parameter too):
 
 	{ 
-		"url" : "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons"
+		"url" : "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons",
 		"pipeline": 
 			[
 				{
