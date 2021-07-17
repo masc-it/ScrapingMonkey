@@ -1,8 +1,8 @@
 # Home
 
-ScrapingMonkey v2 - RESTful API to scrape websites.
+ScrapingMonkey - RESTful API to scrape websites.
 
-In this doc you will find both API calls structure and some practical examples.
+In this doc you will find both API endpoints structure and some practical examples.
 
 Doc status: WIP
 
@@ -10,11 +10,13 @@ Doc status: WIP
 
 You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace!
 
+ScrapingMonkey is now available as a standalone package too, which you can easily deploy on your own machine! (soon)
+
 ## Pricing plans
 
 There are 4 different plans, including a free one to let you taste the features! Check them out on RapidAPI!
 
-# API Calls
+# API endpoints
 
 All the requests require POST, with "Content-Type": "application/x-www-form-urlencoded".
 
