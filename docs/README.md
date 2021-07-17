@@ -142,22 +142,22 @@ data: It defines the save path of the screenshot.
 
 A json object structured in the following way, i.e:
 
-		    {
-				"target1": // this is the target alias, that you specify using the *name* parameter
-					{
-						"elements":[
-							{	"class":"s-link s-link__inherit",
-								"href":"? lastactivity",
-								"title":"2021-06-30 15:45:40Z",
-								"text":"12 days ago",
-								"tag":"a",
-								"rect":{"x":729,"y":119,"w":71,"h":15}
-							},
-							...
-						],
-						"target_status": "OK" or "NOT_FOUND"
-					}
-		    }
+	{
+		"target1": // this is the target alias, that you specify using the *name* parameter
+			{
+				"elements":[
+					{	"class":"s-link s-link__inherit",
+						"href":"? lastactivity",
+						"title":"2021-06-30 15:45:40Z",
+						"text":"12 days ago",
+						"tag":"a",
+						"rect":{"x":729,"y":119,"w":71,"h":15}
+					},
+					...
+				],
+				"target_status": "OK" or "NOT_FOUND"
+			}
+	}
 
 In short, each field of the response corresponds to the *target* name you have spcified in the pipeline request. 
 
