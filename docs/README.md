@@ -1,8 +1,10 @@
 # Home
 
-ScrapingMonkey - RESTful API to scrape websites.
+ScrapingMonkey - RESTful API for web scraping.
 
 In this doc you will find both API endpoints structure and some practical examples.
+
+ScrapingMonkey Task Builder (soon): build your task pipelines with a simple GUI; automatically and interactively build selectors for your dom targets.
 
 Doc status: WIP
 
@@ -10,7 +12,7 @@ Doc status: WIP
 
 You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace!
 
-ScrapingMonkey is now available as a standalone package too, which you can easily deploy on your own machine! (soon)
+ScrapingMonkey will be soon available as a standalone package too, which you can easily deploy on your own machine! (with more endpoints and fine-grained control on the system).
 
 ## Pricing plans
 
@@ -22,7 +24,7 @@ All the requests require POST, with "Content-Type": "application/x-www-form-urle
 
 See RapidAPI examples to have an overview according to the programming language you use.
 
-ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are geographically located in UK, US and DE. More will be added according to usage.
+ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are located in UK, US and DE. More will be added according to usage.
 
 ## /getSource
 
