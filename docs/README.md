@@ -1,6 +1,6 @@
 # Home
 
-ScrapingMonkey - RESTful API to scrape website content.
+ScrapingMonkey v2 - RESTful API to scrape website content.
 
 In this doc you will find both API calls syntax and some practical examples.
 
@@ -12,7 +12,7 @@ You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapi
 
 ## Pricing plans
 
-There are 4 different plans, including a free one with 500 calls per month! Check them out on RapidAPI!
+There are 4 different plans, including a free one to let you taste the features! Check them out on RapidAPI!
 
 # API Calls
 
