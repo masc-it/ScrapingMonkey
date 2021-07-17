@@ -1,8 +1,8 @@
 # Home
 
-ScrapingMonkey v2 - RESTful API to scrape website content.
+ScrapingMonkey v2 - RESTful API to scrape websites.
 
-In this doc you will find both API calls syntax and some practical examples.
+In this doc you will find both API calls structure and some practical examples.
 
 Doc status: WIP
 
@@ -16,74 +16,220 @@ There are 4 different plans, including a free one to let you taste the features!
 
 # API Calls
 
-All the requests have to be called using POST, with a "content-type": "application/x-www-form-urlencoded".
+All the requests require POST, with "Content-Type": "application/x-www-form-urlencoded".
+
 See RapidAPI examples to have an overview according to the programming language you use.
 
+ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are geographically located in UK, US and DE. More will be added according to usage.
 
-## /getLinks
+## /getSource
 
-Get all links in the page. For each link it returns both associated url and text.
-You can filter links too.
+Retrieve page source code. The html will include both statically and dinamically loaded dom elements.
 
-### Parameters
+## Parameters
 
-- url: The target website; (Required)
-- selector: css selector that describes where to search for the links (optional)
-- href: Filter links by href; (optional)
-- text: Filter links by text (optional)
+- url (string)
 
-### Example
+## Response
 
-In this example I am going to get all the links in the right corner list.
+	{
+		"status" : "OK" or "ERR",
+		"html" : "html-source-code"
+	
+	}
+	
 
-_Parameters_
-- url: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-- selector: ul.m-0 .Box-row
+## /run
 
-_Response_
+Run a scraping task.
 
-`{"response":"OK","result":[{"href":"\/adam-p\/markdown-here\/wiki","text":"Home"},{"href":"\/adam-p\/markdown-here\/wiki\/Compatibility","text":"Compatibility"},{"href":"\/adam-p\/markdown-here\/wiki\/Development-Notes","text":"Development Notes"},{"href":"\/adam-p\/markdown-here\/wiki\/Markdown-Cheatsheet","text":"Markdown Cheatsheet"},{"href":"\/adam-p\/markdown-here\/wiki\/Markdown-Here-Cheatsheet","text":"Markdown Here Cheatsheet"},{"href":"\/adam-p\/markdown-here\/wiki\/Other-Markdown-Tools","text":"Other Markdown Tools"},{"href":"\/adam-p\/markdown-here\/wiki\/Press,-Posts,-Reviews,-Etc.","text":"Press, Posts, Reviews, Etc."},{"href":"\/adam-p\/markdown-here\/wiki\/Reviews","text":"Reviews"},{"href":"\/adam-p\/markdown-here\/wiki\/Tips-and-Tricks","text":"Tips and Tricks"},{"href":"\/adam-p\/markdown-here\/wiki\/Troubleshooting","text":"Troubleshooting"}]}`
+## Parameters
 
-## /bySelector
+- url (string)
+- pipeline (json array)
 
-Get elements in the page using cssSelector syntax.
+The pipeline parameter is a json array where each object either represents a **target** (a page element) to scrape or an **action** to perform on the requested web page. 
+
+A **pipeline target** is a json object made in this way:
+
+- name: A meaningful alias for the target. This is a user defined constant, you are going to use it to parse the response.
+- type (string)
+	- XPATH
+	- CSS
+- selector
+	- an xpath or css selector
+
+A **pipeline action** is a json object made in this way:
+
+- name: A meaningful alias for an action. This is a user defined constant, useful to retrieve data in the response.
+- type (string)
+	- CLICK
+	- RUN_SCRIPT
+	- PREV_PAGE
+	- NEXT_PAGE
+	- SEND_KEYS
+	- GO_TO
+	- SCREENSHOT
+- selector
+	- an xpath or css selector
+	- It is *mandatory* for CLICK and SEND_KEYS
+	- It is optional for the others.
+- data
+	- This parameter assume different meaning according to the type of action. 
+	
+Follow a description of all the actions supported.
+
+### CLICK
+
+Click an element in the currently loaded page. 
+
+- selector: xpath selector to find the element to be clicked.
+
+### GO_TO
+
+Redirect to a page.
+
+- data: the URL to load.
+
+### PREV_PAGE, NEXT_PAGE
+
+Navigate to the previous or next page (if any).
+
+### RUN_SCRIPT
+
+Run a javascript code snippet. You can either pass a dom element to the script, in that case you need to specify it using the selector parameter and access it using *attributes[0]*.
+
+- data: javascript code to run.
+- selector (optional): xpath selector; the target element can then be used in your code using the local variable  *attributes[0]*.
+
+Example here.
 
 
-### Parameters
+### SCREENSHOT
 
-- url: The target website; (Required)
-- selector: css selector that describes where to search for the elements; the searching context; (Required)
-- sub_elements: sub elements you want to scrape individually; json specified. (optional)
+Take a screenshot of the current page.
 
-sub_elements format: `[{"name":"some_personal_label", "sub_element": "sub element to search for in the given context, using css selector", "attr" : ["first attribute to scrape",.., "nth attribute"]},  {..}]`
+data: It defines the save path of the screenshot.
 
-As you can see, in a given context you can scrape multiple sub elements and for each sub element, you can get multiple attributes.
 
-### Example
+## Response
 
-In this example I am going to get all the links in the right corner list, as the previous example.
+A json object structured in the following way, i.e:
 
-In this case the base searching context is _ul.m-0 .Box-row_ and I want to get href and text for each link in _\<strong\>_ tag.
+		    {"target1": // this is the target alias, that you specify using the *name* parameter
+			    {
+					"elements":[
+						{	"class":"s-link s-link__inherit",
+							"href":"? lastactivity",
+							"title":"2021-06-30 15:45:40Z",
+							"text":"12 days ago",
+							"tag":"a",
+							"rect":{"x":729,"y":119,"w":71,"h":15}
+						},
+						...
+				    ],
+					"target_status": "OK" or "NOT_FOUND"
+				}
+		    }
 
-_Parameters_
-- url: https://github.com/adam-p/markdown-here/wiki/Markdown-Cheatsheet
-- selector: ul.m-0 .Box-row
-- sub_elements: `[{"name":"table_header", "sub_element": "strong a", "attr" : ["href", "text"]}]`
+In short, each field of the response corresponds to the *target* name you have spcified in the pipeline request. 
 
-_Response_
+Each field (i.e. target1), is a json object made of:
+- elements (json array)
+	- all the scraped elements matching the target selector
+	- each object contains all the html attributes of the target
+- target_status (string)
+	- OK
+	- NOT_FOUND
 
-`{"response":"OK","result":[{"table_header":{"href":"\/adam-p\/markdown-here\/wiki","text":"Home"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Compatibility","text":"Compatibility"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Development-Notes","text":"Development Notes"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Markdown-Cheatsheet","text":"Markdown Cheatsheet"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Markdown-Here-Cheatsheet","text":"Markdown Here Cheatsheet"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Other-Markdown-Tools","text":"Other Markdown Tools"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Press,-Posts,-Reviews,-Etc.","text":"Press, Posts, Reviews, Etc."}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Reviews","text":"Reviews"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Tips-and-Tricks","text":"Tips and Tricks"}},{"table_header":{"href":"\/adam-p\/markdown-here\/wiki\/Troubleshooting","text":"Troubleshooting"}}]}`
+# Examples
 
-# /byId
+Consider the following task:
 
-# /byTag
+- Load  the web page, a stackoverflow post
+- Get all the dom elements matching the CSS selector .question-hyperlink; refer this target as Target #1
+- Take a screenshot and save it to screen0.png
+- Run a js code snippet to scroll down the page
+- Take another screenshot and save it to screen1.png
 
-# /byClass
+In json, it is so defined:
 
-# /getRawHtml
+    {
+	    "url":"https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20",
+	    "pipeline":[
+		    {
+			    "name":"Target #1",
+			    "type":"CSS",
+			    "selector":".question-hyperlink"
+		    },
+			{	"name":"Action #2",
+				"type":"SCREENSHOT",
+				"data":"screen0.png",
+				"selector":""
+			},
+			{
+				"name":"scroll down",
+				"type":"RUN_SCRIPT",
+				"data":"window.scrollTo(0,1600);",
+				"selector":""
+			},
+			{
+				"name":"screen",
+				"type":"SCREENSHOT",
+				"data":"screen1.png",
+				"selector":""
+			}]
+		}
 
-# /scrapeHTML
 
-# /submitForm
+In python, you can parse a generic json from file using the code below:
 
-# /getLinkByName
+    def parse_task(task_file):
+    	with  open(task_file, "r") as  f:
+    		return json.loads(f.read())
+
+Then, you can build your request like this:
+
+    def build_request_url(task_json):
+    	return "https://scrapingmonkey.rapidapi.com/run?&url=%s&pipeline=%s" 
+		    	% ( task_json["url"], task_json["pipeline"], )
+
+Now, let's run the actual request. For this, I am using the *requests* package.
+
+
+    task_json = parse_task("your-task-path")
+    request_url = build_request_url(task_json)
+    response = requests.get(request_url).text
+
+In our particular example, the response will look like this:
+
+    {  
+      "Target #1": {  
+        "elements": [  
+          {  
+            "class": "question-hyperlink",  
+            "href": "/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20",
+            "text": "UnicodeEncodeError: \u0027ascii\u0027 codec can\u0027t encode character u\u0027\\xa0\u0027 in position 20: ordinal not in range(128)",  
+            "rect": {  
+              "x": 509,  
+              "y": 77,  
+              "w": 902,  
+              "h": 66  
+              }  
+          },  
+	      {  
+		      "class": "question-hyperlink",
+		      "href": "https://stackoverflow.com/questions/31137552/unicodeencodeerror-ascii-codec-cant-encode-character-at-special-name?noredirect\u003d1\u0026lq\u003d1",
+		      "text": "UnicodeEncodeError: \u0027ascii\u0027 codec can\u0027t encode character at special name",
+		      "tag": "a", 
+		      "rect": {  
+			      "x": 1308,  
+			      "y": 1699,  
+			      "w": 252,  
+			      "h": 34  
+			   }  
+          },
+          ...
+
+And of course, as specified in the pipeline, you'll find two screenshots, named *screen0.png* and *screen1.png* :D
+
