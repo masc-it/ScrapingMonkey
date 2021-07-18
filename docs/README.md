@@ -24,9 +24,9 @@ All the requests require POST, with "Content-Type": "application/x-www-form-urle
 
 See RapidAPI examples to have an overview according to the programming language you use.
 
-ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are located in UK, US and DE. More will be added according to usage.
+ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are located in UK, US and DE. More will be added according to necessity.
 
-## /getSource
+## /getPageHtml
 
 Retrieve page source code. The html will include both statically and dinamically loaded dom elements.
 
@@ -36,11 +36,7 @@ Retrieve page source code. The html will include both statically and dinamically
 
 ## Response
 
-	{
-		"status" : "OK" or "ERR",
-		"html" : "html-source-code"
-	
-	}
+The html code.
 	
 
 ## /run
@@ -79,7 +75,7 @@ A **pipeline action** is a json object made in this way:
 	- It is *mandatory* for CLICK and SEND_KEYS
 - data
 	- This parameter assumes a different meaning according to the type of action.
-	- It is *mandatory* for RUN_SCRIPT, SCREENSHOT, GO_TO and SEND_KEYS
+	- It is *mandatory* for RUN_SCRIPT, GO_TO and SEND_KEYS
 	
 Follow a description of all the actions supported.
 
@@ -140,9 +136,7 @@ An example of task with a RUN_SCRIPT action (passing a parameter too):
 
 ### SCREENSHOT
 
-Take a screenshot of the current page.
-
-data: It defines the save path of the screenshot.
+Take a screenshot of the current page, encoded in base64. At the moment the image resolution is 1280x720px.
 
 
 ## A generic Response
@@ -211,9 +205,7 @@ In json, it is so defined:
 			},
 			{
 				"name":"screen",
-				"type":"SCREENSHOT",
-				"data":"screen1.png",
-				"selector":""
+				"type":"SCREENSHOT"
 			}]
 		}
 
@@ -246,7 +238,7 @@ In our particular example, the response will look like this:
             "class": "question-hyperlink",  
             "href": "/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20",
             "text": "UnicodeEncodeError: \u0027ascii\u0027 codec can\u0027t encode character u\u0027\\xa0\u0027 in position 20: ordinal not in range(128)",  
-            "rect": {  
+            "pos": {  
               "x": 509,  
               "y": 77,  
               "w": 902,  
@@ -258,7 +250,7 @@ In our particular example, the response will look like this:
 		      "href": "https://stackoverflow.com/questions/31137552/unicodeencodeerror-ascii-codec-cant-encode-character-at-special-name?noredirect\u003d1\u0026lq\u003d1",
 		      "text": "UnicodeEncodeError: \u0027ascii\u0027 codec can\u0027t encode character at special name",
 		      "tag": "a", 
-		      "rect": {  
+		      "pos": {  
 			      "x": 1308,  
 			      "y": 1699,  
 			      "w": 252,  
@@ -266,6 +258,17 @@ In our particular example, the response will look like this:
 			   }  
           },
           ...
+          ]
+      },
+      {
+      	"screen": "screenshot-in-base64"
+      }
+      }
 
-And of course, as specified in the pipeline, you'll find two screenshots, named *screen0.png* and *screen1.png* :D
+If you'd like to actually read the image, in python you'd do something like this:
+
+	imgdata = base64.b64decode(json_response["screen"])
+	filename = 'image.png'
+	with open(filename, 'wb') as f:
+		f.write(imgdata)
 
