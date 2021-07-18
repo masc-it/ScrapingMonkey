@@ -82,7 +82,7 @@ A **pipeline action** is a json object made in this way:
 	- This parameter assumes a different meaning according to the type of action.
 	- It is *mandatory* for RUN_SCRIPT, GO_TO and SEND_KEYS
 	
-Follow a description of all the **operations** supported.
+Follows a description of all the supported **operations**.
 
 ## Operations
 
