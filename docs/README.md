@@ -11,7 +11,7 @@ Note: For v1 documentation, [see here](https://github.com/masc-it/ScrapingMonkey
 ScrapingMonkey Task Builder (soon): build your task pipelines with a simple GUI; automatically and interactively build selectors for your dom targets.
 
 ![Task Builder](https://github.com/masc-it/ScrapingMonkey/raw/v2/imgs/sm_taskbuilder.png)
-Doc status: WIP
+
 
 ## Get ScrapingMonkey
 
