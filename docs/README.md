@@ -82,32 +82,34 @@ A **pipeline action** is a json object made in this way:
 	- This parameter assumes a different meaning according to the type of action.
 	- It is *mandatory* for RUN_SCRIPT, GO_TO and SEND_KEYS
 	
-Follow a description of all the actions supported.
+Follow a description of all the **operations** supported.
 
-## CLICK
+## Operations
+
+### CLICK
 
 Click an element in the currently loaded page. 
 
 - selector: xpath selector to find the element to be clicked.
 
-## SEND_KEYS
+### SEND_KEYS
 
 Send characters to an input field.
 
 - selector: xpath selector to the input element 
 - data: the string to send
 
-## GO_TO
+### GO_TO
 
 Redirect to a page.
 
 - data: the URL to load.
 
-## PREV_PAGE, NEXT_PAGE
+### PREV_PAGE, NEXT_PAGE
 
 Navigate to the previous or next page (if any).
 
-## RUN_SCRIPT
+### RUN_SCRIPT
 
 Run a javascript code snippet. You can either pass a dom element to the script, in that case you need to specify it using the selector parameter and access it using *arguments[0]*.
 
@@ -138,7 +140,7 @@ An example of task with a RUN_SCRIPT action (passing a parameter too):
 			]
 	}
 
-## SCREENSHOT
+### SCREENSHOT
 
 Take a screenshot of the current page, encoded in base64. At the moment the image resolution is 1280x720px.
 
