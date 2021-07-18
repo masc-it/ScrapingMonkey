@@ -1,11 +1,16 @@
 # Home
 
-ScrapingMonkey - RESTful API for web scraping.
+ScrapingMonkey - RESTful web scraping API.
 
 In this doc you will find both API endpoints structure and some practical examples.
 
+ScrapingMonkey v2 will be available really soon. v1 won't be available anymore.
+
+Note: For v1 documentation, [see here](https://github.com/masc-it/ScrapingMonkey/tree/v1)
+
 ScrapingMonkey Task Builder (soon): build your task pipelines with a simple GUI; automatically and interactively build selectors for your dom targets.
 
+![Task Builder](https://github.com/masc-it/ScrapingMonkey/tree/v2/imgs/sm_taskbuilder.png)
 Doc status: WIP
 
 ## Get ScrapingMonkey
