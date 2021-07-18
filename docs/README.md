@@ -31,7 +31,7 @@ See RapidAPI examples to have an overview according to the programming language 
 
 ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are located in UK, US and DE. More will be added according to necessity.
 
-## /getPageHtml
+# /getPageHtml
 
 Retrieve page source code. The html will include both statically and dinamically loaded dom elements.
 
@@ -44,7 +44,7 @@ Retrieve page source code. The html will include both statically and dinamically
 The html code.
 	
 
-## /run
+# /run
 
 Run a scraping task.
 
@@ -84,30 +84,30 @@ A **pipeline action** is a json object made in this way:
 	
 Follow a description of all the actions supported.
 
-### CLICK
+## CLICK
 
 Click an element in the currently loaded page. 
 
 - selector: xpath selector to find the element to be clicked.
 
-### SEND_KEYS
+## SEND_KEYS
 
 Send characters to an input field.
 
 - selector: xpath selector to the input element 
 - data: the string to send
 
-### GO_TO
+## GO_TO
 
 Redirect to a page.
 
 - data: the URL to load.
 
-### PREV_PAGE, NEXT_PAGE
+## PREV_PAGE, NEXT_PAGE
 
 Navigate to the previous or next page (if any).
 
-### RUN_SCRIPT
+## RUN_SCRIPT
 
 Run a javascript code snippet. You can either pass a dom element to the script, in that case you need to specify it using the selector parameter and access it using *arguments[0]*.
 
@@ -138,12 +138,12 @@ An example of task with a RUN_SCRIPT action (passing a parameter too):
 			]
 	}
 
-### SCREENSHOT
+## SCREENSHOT
 
 Take a screenshot of the current page, encoded in base64. At the moment the image resolution is 1280x720px.
 
 
-## A generic Response
+# A generic Response
 
 ScrapingMonkey replies with a json object structured in the following way, i.e:
 
