@@ -177,9 +177,9 @@ Consider the following task:
 
 - Load  the web page, a stackoverflow post
 - Get all the dom elements matching the CSS selector .question-hyperlink; refer this target as Target #1
-- Take a screenshot and save it to screen0.png
+- Take a screenshot
 - Run a js code snippet to scroll down the page
-- Take another screenshot and save it to screen1.png
+- Take another screenshot
 
 In json, it is so defined:
 
@@ -191,16 +191,13 @@ In json, it is so defined:
 			    "operation":"CSS",
 			    "selector":".question-hyperlink"
 		    },
-			{	"name":"Action #2",
-				"operation":"SCREENSHOT",
-				"data":"screen0.png",
-				"selector":""
+			{	"name":"screen0",
+				"operation":"SCREENSHOT"
 			},
 			{
 				"name":"scroll down",
 				"operation":"RUN_SCRIPT",
-				"data":"window.scrollTo(0,1600);",
-				"selector":""
+				"data":"window.scrollTo(0,1600);"
 			},
 			{
 				"name":"screen",
@@ -264,7 +261,7 @@ In our particular example, the response will look like this:
           ...
           ]
       },
-      
+      	"screen0": "screenshot-in-base64",
       	"screen": "screenshot-in-base64"
       
       }
