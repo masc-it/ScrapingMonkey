@@ -53,7 +53,7 @@ The pipeline parameter is a json array where each object either represents a **t
 A **pipeline target** is a json object made in this way:
 
 - name: A meaningful alias for the target. This is a user defined constant, you are going to use it to parse the response.
-- type (string)
+- operation (string)
 	- XPATH
 	- CSS
 - selector
@@ -62,7 +62,7 @@ A **pipeline target** is a json object made in this way:
 A **pipeline action** is a json object made in this way:
 
 - name: A meaningful alias for the action. This is a user defined constant, useful to retrieve data in the response.
-- type (string)
+- operation (string)
 	- CLICK
 	- RUN_SCRIPT
 	- PREV_PAGE
@@ -117,19 +117,18 @@ An example of task with a RUN_SCRIPT action (passing a parameter too):
 			[
 				{
 					"name": "last_activity", 
-					"type": "XPATH", 
+					"operation": "XPATH", 
 					"selector": "//a[contains(@href, 'lastact')]"
 				}, 
 				{
 					"name": "scroll_to", 
-					"type": "RUN_SCRIPT", 
+					"operation": "RUN_SCRIPT", 
 					"selector": "//a[contains(., 'An issue filtering related models')]", 
 					"data" : "arguments[0].scrollIntoView()"
 				}, 
 				{
 					"name": "screen", 
-					"type": "SCREENSHOT", 
-					"data" : "screen0.png"
+					"operation": "SCREENSHOT"
 				}
 			]
 	}
@@ -141,7 +140,7 @@ Take a screenshot of the current page, encoded in base64. At the moment the imag
 
 ## A generic Response
 
-A json object structured in the following way, i.e:
+ScrapingMonkey replies with a json object structured in the following way, i.e:
 
 	{
 		"target1": // this is the target alias, that you specify using the *name* parameter
@@ -152,7 +151,7 @@ A json object structured in the following way, i.e:
 						"title":"2021-06-30 15:45:40Z",
 						"text":"12 days ago",
 						"tag":"a",
-						"rect":{"x":729,"y":119,"w":71,"h":15}
+						"pos":{"x":729,"y":119,"w":71,"h":15}
 					},
 					...
 				],
@@ -189,23 +188,23 @@ In json, it is so defined:
 	    "pipeline":[
 		    {
 			    "name":"Target #1",
-			    "type":"CSS",
+			    "operation":"CSS",
 			    "selector":".question-hyperlink"
 		    },
 			{	"name":"Action #2",
-				"type":"SCREENSHOT",
+				"operation":"SCREENSHOT",
 				"data":"screen0.png",
 				"selector":""
 			},
 			{
 				"name":"scroll down",
-				"type":"RUN_SCRIPT",
+				"operation":"RUN_SCRIPT",
 				"data":"window.scrollTo(0,1600);",
 				"selector":""
 			},
 			{
 				"name":"screen",
-				"type":"SCREENSHOT"
+				"operation":"SCREENSHOT"
 			}]
 		}
 
@@ -216,18 +215,23 @@ In python, you can parse a generic json from file using the code below:
     	with  open(task_file, "r") as  f:
     		return json.loads(f.read())
 
-Then, you can build your request like this:
-
-    def build_request_url(task_json):
-    	return "https://scrapingmonkey.rapidapi.com/run?&url=%s&pipeline=%s" 
-		    	% ( task_json["url"], task_json["pipeline"], )
-
-Now, let's run the actual request. For this, I am using the *requests* package.
+Now, let's build and run the actual request. For this, I am using the *requests* package.
 
 
-    task_json = parse_task("your-task-path")
-    request_url = build_request_url(task_json)
-    response = requests.get(request_url).text
+    import requests
+
+	url = "https://bottom.p.rapidapi.com/run"
+
+	payload = parse_task("your-task-file.json")
+	headers = {
+		'content-type': "application/json",
+		'x-rapidapi-key': "your-rapidapi-key",
+		'x-rapidapi-host': "bottom.p.rapidapi.com"
+		}
+
+	response = requests.post(url, data=payload, headers=headers)
+
+	print(response.text)
 
 In our particular example, the response will look like this:
 
@@ -260,13 +264,14 @@ In our particular example, the response will look like this:
           ...
           ]
       },
-      {
+      
       	"screen": "screenshot-in-base64"
-      }
+      
       }
 
 If you'd like to actually read the image, in python you'd do something like this:
-
+	
+	import base64
 	imgdata = base64.b64decode(json_response["screen"])
 	filename = 'image.png'
 	with open(filename, 'wb') as f:
