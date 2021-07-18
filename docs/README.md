@@ -25,7 +25,7 @@ There are 4 different plans, including a free one to let you taste the features!
 
 # API endpoints
 
-All the requests require POST, with "Content-Type": "application/x-www-form-urlencoded".
+All the requests require POST, with "content-type": "application/json".
 
 See RapidAPI examples to have an overview according to the programming language you use.
 
