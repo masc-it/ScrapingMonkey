@@ -19,7 +19,7 @@ You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapi
 
 ScrapingMonkey will be soon available as a standalone package too, which you can easily deploy on your own machine! (with more endpoints and fine-grained control on the system).
 
-## Pricing plans
+## Plans pricing
 
 There are 4 different plans, including a free one to let you taste the features! Check them out on RapidAPI!
 
