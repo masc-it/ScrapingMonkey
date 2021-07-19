@@ -59,7 +59,7 @@ ULTRA and MEGA accounts have priority.
 
 # API endpoints
 
-All the endpoints require POST and "content-type": "application/json" (See [Example](https://masc-it.github.io/ScrapingMonkey/#/?id=examples)).
+All the endpoints require POST and "content-type": "application/json" (See [Example](https://masc-it.github.io/ScrapingMonkey/#/?id=examples ':target=_self')).
 
 Task also a look at RapidAPI *Code Snippets* section! They show how to build requests in almost all programming languages (Node.js, php, C, C#, Java, Go, etc).
 
@@ -178,7 +178,7 @@ In the example above, the dom element located using the XPath selector *//a[cont
 
 ### SCREENSHOT
 
-Take a screenshot of the current page, encoded in base64. (See [Plans Features](https://masc-it.github.io/ScrapingMonkey/#/?id=plans-features))
+Take a screenshot of the current page, encoded in base64. (See [Plans Features](https://masc-it.github.io/ScrapingMonkey/#/?id=plans-features ':target=_self'))
 
 
 # A generic Response
