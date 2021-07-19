@@ -32,12 +32,6 @@ Each plan has its own set of custom features, better talking about them first!
 - PRO: up to 20 targets/actions. 
 - ULTRA and MEGA: unlimited size.
 
-
-### Unlimited task duration
-
-- BASIC and PRO: up to 20 seconds.
-- ULTRA and MEGA: indefinite. 
-
 ### High quality proxies
 
 ULTRA and MEGA accounts have priority.
