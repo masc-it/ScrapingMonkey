@@ -25,6 +25,8 @@ There are 4 different plans, including a free one to let you taste the features!
 
 ## Plans features
 
+Each plan has its own set of custom features, better talking about them first!
+
 ### Unlimited task size
 - BASIC: up to 10 targets/actions.
 - PRO: up to 20 targets/actions. 
