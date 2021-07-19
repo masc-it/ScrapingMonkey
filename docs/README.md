@@ -80,7 +80,7 @@ The html code.
 
 # /run
 
-Run a scraping task. (See [Plans Features](#/?id=plans-features))
+Run a scraping task. (See [Plans Features](#/?id=plans-features ':target=_self'))
 
 ## Parameters
 
