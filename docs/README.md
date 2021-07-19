@@ -23,11 +23,43 @@ ScrapingMonkey will be soon available as a standalone package too, which you can
 
 There are 4 different plans, including a free one to let you taste the features! Check them out on RapidAPI!
 
+## Plans features
+
+### Unlimited task size
+- BASIC: up to 10 targets/actions.
+- PRO: up to 20 targets/actions. 
+- ULTRA and MEGA: unlimited size.
+
+
+### Unlimited task duration
+
+- BASIC and PRO: up to 20 seconds.
+- ULTRA and MEGA: indefinite. 
+
+### High quality proxies
+
+ULTRA and MEGA accounts have priority.
+
+### FullHD screenshots
+- BASIC and PRO: 1280x720px. 
+- ULTRA and MEGA: 1920x1080px
+
+### Max number of screenshots
+
+- BASIC and PRO: 2
+- ULTRA: 5
+- MEGA: up to 20
+
+### Concurrent requests
+
+- BASIC and PRO: no
+- ULTRA and MEGA: up to 50.
+
 # API endpoints
 
-All the requests require POST, with "content-type": "application/json".
+All the endpoints require POST and "content-type": "application/json" (See [Example](https://masc-it.github.io/ScrapingMonkey/#/?id=examples)).
 
-See RapidAPI examples to have an overview according to the programming language you use.
+Task also a look at RapidAPI *Code Snippets* section! They show how to build requests in almost all programming languages (Node.js, php, C, C#, Java, Go, etc).
 
 ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, in order to let you scrape without any problem. Proxies are located in UK, US and DE. More will be added according to necessity.
 
@@ -47,6 +79,17 @@ The html code.
 # /run
 
 Run a scraping task.
+
+## Notes
+
+- BASIC subscribers
+	- A task contains up to 10 targets/actions.
+
+- PRO subscribers
+	- A task contains up to 20 targets/actions.
+	
+- ULTRA and MEGA subscribers
+	- No limits.
 
 ## Parameters
 
@@ -75,10 +118,10 @@ A **pipeline action** is a json object made in this way:
 	- SEND_KEYS
 	- GO_TO
 	- SCREENSHOT
-- selector
+- selector (string)
 	- an xpath selector
 	- It is *mandatory* for CLICK and SEND_KEYS
-- data
+- data (string)
 	- This parameter assumes a different meaning according to the type of action.
 	- It is *mandatory* for RUN_SCRIPT, GO_TO and SEND_KEYS
 	
@@ -140,9 +183,19 @@ An example of task with a RUN_SCRIPT action (passing a parameter too):
 			]
 	}
 
+In the example above, the dom element located using the XPath selector *//a[contains(., 'An issue filtering related models')]* is then used in the script and accessed using *arguments[0]*. 
+
 ### SCREENSHOT
 
-Take a screenshot of the current page, encoded in base64. At the moment the image resolution is 1280x720px.
+Take a screenshot of the current page, encoded in base64. 
+
+#### Notes
+- BASIC and PRO subscribers
+	- image resolution is 1280x720px
+	- 2 screenshots max per single task
+- ULTRA and MEGA subscribers
+	- Full HD image resolution: 1920x1080px
+	- unlimited screenshots
 
 
 # A generic Response
@@ -166,12 +219,12 @@ ScrapingMonkey replies with a json object structured in the following way, i.e:
 			}
 	}
 
-In short, each field of the response corresponds to the *target* name you have spcified in the pipeline request. 
+In short, each field of the response corresponds to the *target* name you have specified in the pipeline request. 
 
 Each field (i.e. target1), is a json object made of:
 - elements (json array)
 	- all the scraped elements matching the target selector
-	- each object contains all the html attributes of the target
+	- each object contains all the html attributes of the target, also its absolute position in the page
 - target_status (string)
 	- OK
 	- NOT_FOUND
@@ -229,7 +282,7 @@ Now, let's build and run the actual request. For this, I am using the *requests*
 	payload = parse_task("your-task-file.json")
 	headers = {
 		'content-type': "application/json",
-		'x-rapidapi-key': "your-rapidapi-key",
+		'x-rapidapi-key': "your-scrapingmonkey-key",
 		'x-rapidapi-host': "bottom.p.rapidapi.com"
 		}
 
@@ -273,10 +326,10 @@ In our particular example, the response will look like this:
       
       }
 
-If you'd like to actually read the image, in python you'd do something like this:
+If you'd like to actually read the images, in python you'd do something like this:
 	
 	import base64
-	imgdata = base64.b64decode(json_response["screen"])
+	imgdata = base64.b64decode(json_response["screen"]) # replace "screen" with your own alias for the screenshot
 	filename = 'image.png'
 	with open(filename, 'wb') as f:
 		f.write(imgdata)
