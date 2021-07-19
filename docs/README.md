@@ -67,7 +67,7 @@ ScrapingMonkey uses low-latency, high-quality and periodically updated proxies, 
 
 # /getPageHtml
 
-Retrieve page source code. The html will include both statically and dinamically loaded dom elements.
+Retrieve page source code. The html will include both statically and dinamically-loaded dom elements.
 
 ## Parameters
 
@@ -80,18 +80,7 @@ The html code.
 
 # /run
 
-Run a scraping task.
-
-## Notes
-
-- BASIC subscribers
-	- A task contains up to 10 targets/actions.
-
-- PRO subscribers
-	- A task contains up to 20 targets/actions.
-	
-- ULTRA and MEGA subscribers
-	- No limits.
+Run a scraping task. (See [Plans Features](https://masc-it.github.io/ScrapingMonkey/#/?id=plans-features))
 
 ## Parameters
 
@@ -189,15 +178,7 @@ In the example above, the dom element located using the XPath selector *//a[cont
 
 ### SCREENSHOT
 
-Take a screenshot of the current page, encoded in base64. 
-
-#### Notes
-- BASIC and PRO subscribers
-	- image resolution is 1280x720px
-	- 2 screenshots max per single task
-- ULTRA and MEGA subscribers
-	- Full HD image resolution: 1920x1080px
-	- unlimited screenshots
+Take a screenshot of the current page, encoded in base64. (See [Plans Features](https://masc-it.github.io/ScrapingMonkey/#/?id=plans-features))
 
 
 # A generic Response
