@@ -34,7 +34,13 @@ Each plan has its own set of custom features, better talking about them first!
 
 ### High quality proxies
 
-ULTRA and MEGA accounts have priority.
+MEGA and ULTRA accounts have maximum priority. 
+
+The Proxy choice follows this priority queue: MEGA > ULTRA > PRO > BASIC.
+
+Of course, according to the load in a given instant, also low tier accounts have good chances to get high quality proxies!
+
+Check the [ToDo/Wish list](https://masc-it.github.io/ScrapingMonkey/#/?id=todo_list ':target=_self') for more info about future developments and improvements.
 
 ### FullHD screenshots
 - BASIC and PRO: 1280x720px. 
@@ -46,10 +52,13 @@ ULTRA and MEGA accounts have priority.
 - ULTRA: 5
 - MEGA: up to 20
 
-### Concurrent requests
+### Concurrent requests (per second)
 
-- BASIC and PRO: no
-- ULTRA and MEGA: up to 50.
+- BASIC and PRO: 1
+- ULTRA: up to 10
+- MEGA: up to 20
+
+These limits may vary (+/-) according to the load on the servers.
 
 # API endpoints
 
@@ -207,6 +216,14 @@ Each field (i.e. target1), is a json object made of:
 	- NOT_FOUND
 
 A good practice, before parsing elements, would be to check for each target, the *target_status* field and assure it is set as *OK*.
+
+# ToDo list
+
+- [ ] High quality proxies for everybody
+- [ ] More servers to improve concurrency
+- [ ] For-loop action
+- [ ] Possibility to use, in the same task, targets previously scraped in the pipeline
+	
 
 # Examples
 
