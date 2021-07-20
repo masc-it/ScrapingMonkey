@@ -40,7 +40,7 @@ The Proxy choice follows this priority queue: MEGA > ULTRA > PRO > BASIC.
 
 Of course, according to the load in a given instant, also low tier accounts have good chances to get high quality proxies!
 
-Check the [ToDo/Wish list](https://masc-it.github.io/ScrapingMonkey/#/?id=todo_list ':target=_self') for more info about future developments and improvements.
+Check the [ToDo/Wish list](https://masc-it.github.io/ScrapingMonkey/#/?id=todo-list ':target=_self') for more info about future developments and improvements.
 
 ### FullHD screenshots
 - BASIC and PRO: 1280x720px. 
