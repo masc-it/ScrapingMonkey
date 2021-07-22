@@ -55,8 +55,8 @@ Check the [ToDo/Wish list](https://masc-it.github.io/ScrapingMonkey/#/?id=todo-l
 ### Concurrent requests (per second)
 
 - BASIC and PRO: 1
-- ULTRA: up to 10
-- MEGA: up to 20
+- ULTRA: up to 5
+- MEGA: up to 10
 
 These limits may vary (+/-) according to the load on the servers.
 
@@ -271,13 +271,13 @@ Now, let's build and run the actual request. For this, I am using the *requests*
 
     import requests
 
-	url = "https://bottom.p.rapidapi.com/run"
+	url = "https://scrapingmonkey.p.rapidapi.com/run"
 
 	payload = parse_task("your-task-file.json")
 	headers = {
 		'content-type': "application/json",
 		'x-rapidapi-key': "your-scrapingmonkey-key",
-		'x-rapidapi-host': "bottom.p.rapidapi.com"
+		'x-rapidapi-host': "scrapingmonkey.p.rapidapi.com"
 		}
 
 	response = requests.post(url, data=payload, headers=headers)
