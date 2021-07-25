@@ -27,19 +27,19 @@ ScrapingMonkey will be soon available as a standalone package too, which you can
 
 Estimated price: 150$ (lifetime license and updates).
 
-[Contact me](mailto:onipot@gmail.com) for more information.
+[Contact me](mailto:onipot.contact@gmail.com) for more information.
 
 ## Get ScrapingMonkey source code
-Source code? [Contact me](mailto:onipot@gmail.com) for more information.
+Source code? [Contact me](mailto:onipot.contact@gmail.com) for more information.
 
 ## Plans pricing
 
 There are 4 different plans, including a free one to let you taste the features! Check them out on RapidAPI!
-Custom plans are available too. You can [contact me](mailto:onipot@gmail.com) for more information.
+Custom plans are available too. You can [contact me](mailto:onipot.contact@gmail.com) for more information.
 
 ## Discounts for university members
 
-If you are a university member (student, researcher, etc) [contact me](mailto:onipot@gmail.com) with your academic email to have a 15% discount on all the plans.
+If you are a university member (student, researcher, etc) [contact me](mailto:onipot.contact@gmail.com) with your academic email to have a 15% discount on all the plans.
 
 Use *SM UNIVERSITY* as subject of the email.
 
