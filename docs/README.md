@@ -380,6 +380,6 @@ If you'd like to actually read the images, in python you'd do something like thi
 		
 # Disclaimers
 
-ScrapingMonkey, as I designed it, is a GOOD BOT by definition, I am not responsible for how you use this simple yet powerful tool.
+ScrapingMonkey, as it is designed, is a GOOD BOT by definition, I am not responsible for how you use this simple yet powerful tool.
 
 
