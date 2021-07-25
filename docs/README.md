@@ -240,7 +240,7 @@ The following endpoints allow you to select dom elements using different types o
 ## /byXPath
 ## /byLinkText
 
-### Parameters
+## Parameters
 - url (string)
 - selector (string)
 	- byId: the id of the target
@@ -248,7 +248,7 @@ The following endpoints allow you to select dom elements using different types o
 	- byTag: the tag name of the target
 	- ...
 
-### Response
+## Response
 
 	{
 		"elements":[
