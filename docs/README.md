@@ -71,6 +71,10 @@ Check the [ToDo/Wish list](https://masc-it.github.io/ScrapingMonkey/#/?id=todo-l
 
 These limits may vary (+/-) according to the load on the servers.
 
+### Task Builder GUI (soon)
+
+Available only for ULTRA and MEGA subscribers.
+
 # API endpoints
 
 All the endpoints require POST and "content-type": "application/json" (See [Example](https://masc-it.github.io/ScrapingMonkey/#/?id=examples ':target=_self')).
