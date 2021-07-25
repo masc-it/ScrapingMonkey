@@ -17,11 +17,20 @@ ScrapingMonkey Task Builder (soon): build your task pipelines with a simple GUI;
 
 Now go ahead and explore all the features!
 
-## Get ScrapingMonkey
+## Get ScrapingMonkey API
 
 You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace out there!
 
-ScrapingMonkey will be soon available as a standalone package too, which you can easily deploy on your own machine! (with more endpoints and fine-grained control on the system).
+## Get ScrapingMonkey Standalone
+
+ScrapingMonkey will be soon available as a standalone package too, which you can easily configure and deploy on your own machine! (with more endpoints and fine-grained control on the system).
+
+Estimated price: 150$ (lifetime license and updates).
+
+[Contact me](mailto:onipot@gmail.com) for more information.
+
+## Get ScrapingMonkey source code
+Source code? [Contact me](mailto:onipot@gmail.com) for more information.
 
 ## Plans pricing
 
