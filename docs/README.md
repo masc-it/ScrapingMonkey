@@ -1,10 +1,13 @@
-# Home
+# ScrapingMonkey (SM)
 
-ScrapingMonkey - RESTful web scraping API.
+ScrapingMonkey it's a RESTful web automation API. It's meant to be general purpose, so you can exploit it according to your needs. 
+Do not worry about setups, dependencies, etc.. you just need simple POST requests.
 
-In this doc you will find both API endpoints structure and some practical examples.
+This tool is mainly built for *data scientists*, *students* and *web-app testers*, I hope to make you save some precious time!
 
-ScrapingMonkey v2 will be available really soon. v1 won't be available anymore.
+In this doc you will find both API endpoints descriptions and some practical examples.
+
+ScrapingMonkey v2 will be available really soon and v1 superseded.
 
 Note: For v1 documentation, [see here](https://github.com/masc-it/ScrapingMonkey/tree/v1)
 
@@ -12,16 +15,24 @@ ScrapingMonkey Task Builder (soon): build your task pipelines with a simple GUI;
 
 ![Task Builder](https://github.com/masc-it/ScrapingMonkey/raw/v2/imgs/sm_taskbuilder.png)
 
+Now go ahead and explore all the features!
 
 ## Get ScrapingMonkey
 
-You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace!
+You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace out there!
 
 ScrapingMonkey will be soon available as a standalone package too, which you can easily deploy on your own machine! (with more endpoints and fine-grained control on the system).
 
 ## Plans pricing
 
 There are 4 different plans, including a free one to let you taste the features! Check them out on RapidAPI!
+Custom plans are available too. You can [contact me](mailto:onipot@gmail.com) for more information.
+
+## Discounts for university members
+
+If you are a university member (student, researcher, etc) [contact me](mailto:onipot@gmail.com) with your academic email to have a 15% discount on all the plans.
+
+Use *SM UNIVERSITY* as subject of the email.
 
 ## Plans features
 
@@ -46,7 +57,7 @@ Check the [ToDo/Wish list](https://masc-it.github.io/ScrapingMonkey/#/?id=todo-l
 - BASIC and PRO: 1280x720px. 
 - ULTRA and MEGA: 1920x1080px
 
-### Max number of screenshots
+### Max number of screenshots (per task)
 
 - BASIC and PRO: 2
 - ULTRA: 5
@@ -184,6 +195,42 @@ In the example above, the dom element located using the XPath selector *//a[cont
 Take a screenshot of the current page, encoded in base64. (See [Plans Features](https://masc-it.github.io/ScrapingMonkey/#/?id=plans-features ':target=_self'))
 
 
+# /by
+
+The following endpoints allow you to select dom elements using different types of approaches.
+
+## /byId
+## /byClass
+## /byTag
+## /byCss
+## /byXPath
+## /byLinkText
+
+### Parameters
+- url (string)
+- selector (string)
+	- byId: the id of the target
+	- byClass: the class name
+	- byTag: the tag name of the target
+	- ...
+
+### Response
+
+	{
+		"elements":[
+			{
+				"id":"elementId",
+				"text":"Today's a sunny day here in NYC",
+				"tag":"span",
+				"pos":{"x":367,"y":173,"w":414,"h":65},
+				"another-attr": "value",
+				..
+			},
+			...
+		],
+		"status":"OK"
+	}
+
 # A generic Response
 
 ScrapingMonkey replies with a json object structured in the following way, i.e:
@@ -220,9 +267,10 @@ A good practice, before parsing elements, would be to check for each target, the
 # ToDo list
 
 - [ ] High quality proxies for everybody
-- [ ] More servers to improve concurrency
+- [ ] More/better servers to improve concurrency (and response time)
 - [ ] For-loop action
 - [ ] Possibility to use, in the same task, targets previously scraped in the pipeline
+- [ ] JSON parsing
 	
 
 # Examples
@@ -327,4 +375,9 @@ If you'd like to actually read the images, in python you'd do something like thi
 	filename = 'image.png'
 	with open(filename, 'wb') as f:
 		f.write(imgdata)
+		
+# Disclaimers
+
+ScrapingMonkey, as I designed it, is a GOOD BOT by definition, I am not responsible for how you use this simple yet powerful tool.
+
 
