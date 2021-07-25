@@ -195,6 +195,40 @@ In the example above, the dom element located using the XPath selector *//a[cont
 Take a screenshot of the current page, encoded in base64. (See [Plans Features](https://masc-it.github.io/ScrapingMonkey/#/?id=plans-features ':target=_self'))
 
 
+## Response
+
+ScrapingMonkey replies with a json object structured in the following way, i.e:
+
+	{
+		"target1": // this is the target alias, that you specify using the *name* parameter
+			{
+				"elements":[
+					{	"class":"s-link s-link__inherit",
+						"href":"? lastactivity",
+						"title":"2021-06-30 15:45:40Z",
+						"text":"12 days ago",
+						"tag":"a",
+						"pos":{"x":729,"y":119,"w":71,"h":15}
+					},
+					...
+				],
+				"target_status": "OK" or "NOT_FOUND"
+			}
+	}
+
+In short, each field of the response corresponds to the *target* name you have specified in the pipeline request. 
+
+Each field (i.e. target1), is a json object made of:
+- elements (json array)
+	- all the scraped elements matching the target selector
+	- each object contains all the html attributes of the target, also its absolute position in the page
+- target_status (string)
+	- OK
+	- NOT_FOUND
+
+A good practice, before parsing elements, would be to check for each target, the *target_status* field and assure it is set as *OK*.
+
+
 # /by
 
 The following endpoints allow you to select dom elements using different types of approaches.
@@ -231,38 +265,6 @@ The following endpoints allow you to select dom elements using different types o
 		"status":"OK"
 	}
 
-# A generic Response
-
-ScrapingMonkey replies with a json object structured in the following way, i.e:
-
-	{
-		"target1": // this is the target alias, that you specify using the *name* parameter
-			{
-				"elements":[
-					{	"class":"s-link s-link__inherit",
-						"href":"? lastactivity",
-						"title":"2021-06-30 15:45:40Z",
-						"text":"12 days ago",
-						"tag":"a",
-						"pos":{"x":729,"y":119,"w":71,"h":15}
-					},
-					...
-				],
-				"target_status": "OK" or "NOT_FOUND"
-			}
-	}
-
-In short, each field of the response corresponds to the *target* name you have specified in the pipeline request. 
-
-Each field (i.e. target1), is a json object made of:
-- elements (json array)
-	- all the scraped elements matching the target selector
-	- each object contains all the html attributes of the target, also its absolute position in the page
-- target_status (string)
-	- OK
-	- NOT_FOUND
-
-A good practice, before parsing elements, would be to check for each target, the *target_status* field and assure it is set as *OK*.
 
 # ToDo list
 
