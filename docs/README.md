@@ -19,7 +19,7 @@ Now go ahead and explore all the features!
 
 ## Get ScrapingMonkey API
 
-You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API marketplace out there!
+You can find [ScrapingMonkey on RapidAPI](https://rapidapi.com/onipot/api/scrapingmonkey), the biggest API Hub out there!
 
 ## Get ScrapingMonkey Standalone
 
@@ -120,10 +120,9 @@ A **pipeline target** is a json object made in this way:
 
 - name: A meaningful alias for the target. This is a user defined constant, you are going to use it to parse the response.
 - operation (string)
-	- XPATH
-	- CSS
+	- SCRAPE
 - selector
-	- an xpath or css selector
+	- "selector": {"type": "XPATH", "selector": "your xpath selector"} or {"type": "CSS", "selector": "your css selector"}
 
 A **pipeline action** is a json object made in this way:
 
@@ -131,13 +130,12 @@ A **pipeline action** is a json object made in this way:
 - operation (string)
 	- CLICK
 	- RUN_SCRIPT
-	- PREV_PAGE
-	- NEXT_PAGE
+	- PRESS_KEY
 	- SEND_KEYS
 	- GO_TO
 	- SCREENSHOT
-- selector (string)
-	- an xpath selector
+- selector
+	- "selector": {"type": "XPATH", "selector": "your xpath selector"} or {"type": "CSS", "selector": "your css selector"}
 	- It is *mandatory* for CLICK and SEND_KEYS
 - data (string)
 	- This parameter assumes a different meaning according to the type of action.
@@ -151,13 +149,13 @@ Follows a description of all the supported **operations**.
 
 Click an element in the currently loaded page. 
 
-- selector: xpath selector to find the element to be clicked.
+- selector:  {"type": "XPATH", "selector": "your xpath selector"} or {"type": "CSS", "selector": "your css selector"}
 
 ### SEND_KEYS
 
 Send characters to an input field.
 
-- selector: xpath selector to the input element 
+- selector: {"type": "XPATH", "selector": "your xpath selector"} or {"type": "CSS", "selector": "your css selector"}
 - data: the string to send
 
 ### GO_TO
@@ -166,42 +164,30 @@ Redirect to a page.
 
 - data: the URL to load.
 
-### PREV_PAGE, NEXT_PAGE
-
-Navigate to the previous or next page (if any).
-
 ### RUN_SCRIPT
 
-Run a javascript code snippet. You can either pass a dom element to the script, in that case you need to specify it using the selector parameter and access it using *arguments[0]*.
+Run a javascript code snippet.
 
 - data: javascript code to run.
-- selector (optional): xpath selector; the target element can then be used in your code using the local variable  *arguments[0]*.
 
 An example of task with a RUN_SCRIPT action (passing a parameter too):
 
-	{ 
-		"url" : "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons",
-		"pipeline": 
-			[
-				{
-					"name": "last_activity", 
-					"operation": "XPATH", 
-					"selector": "//a[contains(@href, 'lastact')]"
-				}, 
-				{
-					"name": "scroll_to", 
-					"operation": "RUN_SCRIPT", 
-					"selector": "//a[contains(., 'An issue filtering related models')]", 
-					"data" : "arguments[0].scrollIntoView()"
-				}, 
-				{
-					"name": "screen", 
-					"operation": "SCREENSHOT"
-				}
-			]
+	{
+		"url": "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons",
+		"pipeline": [
+		    {
+		        "name": "t1",
+		        "operation": "SCRAPE",
+		        "selector": {"type": "XPATH", "selector": "//a[contains(@href, 'lastact')]"}
+		    },
+		    {
+		        "name": "a1",
+		        "operation": "RUN_SCRIPT",
+		        "data": "let el = document.evaluate(\"//a[contains(., 'An issue filtering related models')]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ); el.singleNodeValue.scrollIntoView()"
+		    }
+		]
 	}
 
-In the example above, the dom element located using the XPath selector *//a[contains(., 'An issue filtering related models')]* is then used in the script and accessed using *arguments[0]*. 
 
 ### SCREENSHOT
 
@@ -213,28 +199,44 @@ Take a screenshot of the current page, encoded in base64. (See [Plans Features](
 ScrapingMonkey replies with a json object structured in the following way, i.e:
 
 	{
-		"target1": // this is the target alias, that you specify using the *name* parameter
-			{
-				"elements":[
-					{	"class":"s-link s-link__inherit",
-						"href":"? lastactivity",
-						"title":"2021-06-30 15:45:40Z",
-						"text":"12 days ago",
-						"tag":"a",
-						"pos":{"x":729,"y":119,"w":71,"h":15}
-					},
-					...
-				],
-				"target_status": "OK" or "NOT_FOUND"
-			}
+		"result": {
+		    "t1": {
+		        "status": "OK",
+		        "elements": [
+		            {
+		                "href": {
+		                    "attr": "href",
+		                    "value": "?lastactivity"
+		                },
+		                "class": {
+		                    "attr": "class",
+		                    "value": "s-link s-link__inherit"
+		                },
+		                "title": {
+		                    "attr": "title",
+		                    "value": "2021-09-20 19:42:54Z"
+		                },
+		                "innerHTML": {
+		                    "value": "2 months ago"
+		                },
+		                "textContent": {
+		                    "value": "2 months ago"
+		                }
+		            }
+		        ]
+		    },
+		    "a1": {
+		        "status": "OK"
+		    }
+		}
 	}
 
 In short, each field of the response corresponds to the *target* name you have specified in the pipeline request. 
 
-Each field (i.e. target1), is a json object made of:
+Each field (i.e. t1), is a json object made of:
 - elements (json array)
 	- all the scraped elements matching the target selector
-	- each object contains all the html attributes of the target, also its absolute position in the page
+	- each object contains all the html attributes of the target
 - target_status (string)
 	- OK
 	- NOT_FOUND
@@ -242,7 +244,7 @@ Each field (i.e. target1), is a json object made of:
 A good practice, before parsing elements, would be to check for each target, the *target_status* field and assure it is set as *OK*.
 
 
-# /by
+# /by (coming soon)
 
 The following endpoints allow you to select dom elements using different types of approaches.
 
@@ -281,8 +283,8 @@ The following endpoints allow you to select dom elements using different types o
 
 # ToDo list
 
-- [ ] High quality proxies for everybody
-- [ ] More/better servers to improve concurrency (and response time)
+- [x] High quality proxies for everybody
+- [x] More/better servers to improve concurrency (and response time)
 - [ ] For-loop action
 - [ ] Possibility to use, in the same task, targets previously scraped in the pipeline
 - [ ] JSON parsing
@@ -301,26 +303,31 @@ Consider the following task:
 In json, it is so defined:
 
     {
-	    "url":"https://stackoverflow.com/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20",
-	    "pipeline":[
+		"url": "https://stackoverflow.com/questions/58787864/changing-primary-palette-color-when-using-kivymd-has-no-effect-on-buttons",
+		"pipeline": [
 		    {
-			    "name":"Target #1",
-			    "operation":"CSS",
-			    "selector":".question-hyperlink"
+		        "name": "t1",
+		        "operation": "SCRAPE",
+		        "selector": {"type": "XPATH", "selector": "//a[contains(@href, 'lastact')]"}
 		    },
-			{	"name":"screen0",
-				"operation":"SCREENSHOT"
-			},
-			{
-				"name":"scroll down",
-				"operation":"RUN_SCRIPT",
-				"data":"window.scrollTo(0,1600);"
-			},
-			{
-				"name":"screen",
-				"operation":"SCREENSHOT"
-			}]
-		}
+		    {
+		        "name": "a1",
+		        "operation": "RUN_SCRIPT",
+		        "data": "let el = document.evaluate(\"//a[contains(., 'An issue filtering related models')]\", document, null, XPathResult.FIRST_ORDERED_NODE_TYPE, null ); el.singleNodeValue.scrollIntoView()"
+		    },
+		    {
+                "name": "screen",
+                "operation": "SCREENSHOT",
+                "selector": {
+                    "type": "XPATH",
+                    "selector": "//body"
+                },
+                "data": {
+                    "type": "base64"
+                }
+            }
+		]
+	}
 
 
 In python, you can parse a generic json from file using the code below:
@@ -349,39 +356,39 @@ Now, let's build and run the actual request. For this, I am using the *requests*
 
 In our particular example, the response will look like this:
 
-    {  
-      "Target #1": {  
-        "elements": [  
-          {  
-            "class": "question-hyperlink",  
-            "href": "/questions/9942594/unicodeencodeerror-ascii-codec-cant-encode-character-u-xa0-in-position-20",
-            "text": "UnicodeEncodeError: \u0027ascii\u0027 codec can\u0027t encode character u\u0027\\xa0\u0027 in position 20: ordinal not in range(128)",  
-            "pos": {  
-              "x": 509,  
-              "y": 77,  
-              "w": 902,  
-              "h": 66  
-              }  
-          },  
-	      {  
-		      "class": "question-hyperlink",
-		      "href": "https://stackoverflow.com/questions/31137552/unicodeencodeerror-ascii-codec-cant-encode-character-at-special-name?noredirect\u003d1\u0026lq\u003d1",
-		      "text": "UnicodeEncodeError: \u0027ascii\u0027 codec can\u0027t encode character at special name",
-		      "tag": "a", 
-		      "pos": {  
-			      "x": 1308,  
-			      "y": 1699,  
-			      "w": 252,  
-			      "h": 34  
-			   }  
-          },
-          ...
-          ]
-      },
-      	"screen0": "screenshot-in-base64",
-      	"screen": "screenshot-in-base64"
-      
-      }
+    {
+		"result": {
+		    "t1": {
+		        "status": "OK",
+		        "elements": [
+		            {
+		                "href": {
+		                    "attr": "href",
+		                    "value": "?lastactivity"
+		                },
+		                "class": {
+		                    "attr": "class",
+		                    "value": "s-link s-link__inherit"
+		                },
+		                "title": {
+		                    "attr": "title",
+		                    "value": "2021-09-20 19:42:54Z"
+		                },
+		                "innerHTML": {
+		                    "value": "2 months ago"
+		                },
+		                "textContent": {
+		                    "value": "2 months ago"
+		                }
+		            }
+		        ]
+		    },
+		    "a1": {
+		        "status": "OK"
+		    },
+		    "screen": your base64-encoded screenshot
+		}
+	}
 
 If you'd like to actually read the images, in python you'd do something like this:
 	
