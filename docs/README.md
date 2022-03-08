@@ -122,7 +122,7 @@ A **pipeline target** is a json object made in this way:
 - operation (string)
 	- SCRAPE
 - selector
-	- "selector": {"type": "XPATH", "selector": "your xpath selector"} or {"type": "CSS", "selector": "your css selector"}
+	- "selector": {"type": "XPATH", "target": "your xpath selector"} or {"type": "CSS", "target": "your css selector"}
 
 A **pipeline action** is a json object made in this way:
 
@@ -135,7 +135,7 @@ A **pipeline action** is a json object made in this way:
 	- GO_TO
 	- SCREENSHOT
 - selector
-	- "selector": {"type": "XPATH", "selector": "your xpath selector"} or {"type": "CSS", "selector": "your css selector"}
+	- "selector": {"type": "XPATH", "target": "your xpath selector"} or {"type": "CSS", "target": "your css selector"}
 	- It is *mandatory* for CLICK and SEND_KEYS
 - data (string)
 	- This parameter assumes a different meaning according to the type of action.
@@ -308,7 +308,7 @@ In json, it is so defined:
 		    {
 		        "name": "t1",
 		        "operation": "SCRAPE",
-		        "selector": {"type": "XPATH", "selector": "//a[contains(@href, 'lastact')]"}
+		        "selector": {"type": "XPATH", "target": "//a[contains(@href, 'lastact')]"}
 		    },
 		    {
 		        "name": "a1",
